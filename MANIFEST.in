@@ -1,5 +1,0 @@
-include LICENSE.txt
-include AUTHORS
-include CHANGES
-include README.md
-prune pinterest_example
