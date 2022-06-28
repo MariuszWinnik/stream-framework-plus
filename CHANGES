@@ -1,0 +1,84 @@
+==== 1.4.0 ====
+
+- make add_to_storage signature consistent on all implementations (args and kwargs were missing for some)
+- Add support for cassandra-driver 3.2.0+
+- Use extras_require pip feature instead of custom install arguments
+
+==== 1.3.5 ====
+
+- Fix ignored redis_server timeline parameter
+
+==== 1.3.4 ====
+
+- faster deserialization for Cassandra feeds (skip ORM layer during serialization)
+- optional cassandra install
+- allow to use cassandra-driver v3 via install option
+
+Breaking changes:
+-----------------
+
+Cassandra users:
+    * activity serializers now get a dictionary instead of a CQL model instances when loading data
+    * feeds' timelines that implements get_slice_from_storage now must return a dict instead of CQL model instance
+
+
+==== 1.3.3 ====
+
+- easier test setup
+- add default protocol_version for Cassandra (v2)
+- default serialization_id for aggregated activities is now with millisecond resolution
+- add built-in sorting to Activity class
+
+==== 1.3.2 ====
+
+- support for using stream-framework with cassandra-driver 3.0.0. this enables support for cassandra 3.3
+
+==== 1.3.1 ====
+
+- update cassandra driver to 2.7.2
+
+==== 1.3.0 ====
+
+- removed feedly legacy module
+- move to cassandra driver 2.7 (CQLEngine dev happens on the driver since 2.5)
+
+==== 1.2.0 ====
+
+- python 2.7 and 3.4 support
+
+==== 1.1.3 ====
+
+- remove batch inserts for cassandra backend, move to async parallel statements
+- millisecond timestamp resolution
+- manager's follow_user method now respects async parameter
+- custom cassandra models are now easy to use
+
+==== 1.1.2 ====
+
+- Fixed potential memory leak with memoize decorator (Cassandra only)
+
+==== 1.1.1 ====
+
+- fixed pypi link to github
+
+==== 1.1.0 ====
+
+- Support activity_id (asc and desc) sorting for Redis backed feeds (thanks to Anislav)
+- Configurable aggregated feeds update_seen_at and update_read_at fields
+- Faster redis counts (using ZCARD instead of ZCOUNT -inf +inf)
+
+Breaking changes:
+----------------
+Aggregated activities update_seen_at and update_read_at attributes are not stored in UTC by default
+
+==== 1.0.1 ====
+
+- Fixes some legacy feedly names in code
+- Better documentation
+
+==== 1.0.0 ====
+
+- Renamed from Feedly to Stream Framework
+- Feedly install via pypi will be supported till 22-01-2015
+- The new package is available on pypi here https://pypi.python.org/pypi/stream_framework/
+- And support the from feedly import * syntax till 19-03-2015
