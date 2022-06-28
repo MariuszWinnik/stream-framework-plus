@@ -14,12 +14,12 @@ def get_redis_connection(server_name='default'):
         connection_pool = setup_redis()
 
     pool = connection_pool[server_name]
-    config = settings.STREAM_REDIS_CONFIG["default"]
+    kwargs = pool.connection_kwargs
 
     return redis.Redis(
         connection_pool=pool,
-        ssl=True if config['port'] == 6380 else False,
-        password=config.get('password'),
+        ssl=True if kwargs['port'] == 6380 else False,
+        password=kwargs['password']
     )
 
 
