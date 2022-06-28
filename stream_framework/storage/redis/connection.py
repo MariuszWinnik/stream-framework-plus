@@ -14,8 +14,13 @@ def get_redis_connection(server_name='default'):
         connection_pool = setup_redis()
 
     pool = connection_pool[server_name]
+    config = settings.STREAM_REDIS_CONFIG["default"]
 
-    return redis.Redis(connection_pool=pool)
+    return redis.Redis(
+        connection_pool=pool,
+        ssl=True if config['port'] == 6380 else False,
+        password=config.get('password'),
+    )
 
 
 def setup_redis():
@@ -36,6 +41,8 @@ def setup_redis():
             socket_keepalive=config.get('socket_keepalive', False),
             socket_keepalive_options=config.get('socket_keepalive_options', None),
             retry_on_timeout=config.get('retry_on_timeout', False),
+            connection_class=redis.SSLConnection,
+            ssl_cert_reqs=u'none'
         )
         pools[name] = pool
     return pools
