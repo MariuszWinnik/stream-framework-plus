@@ -30,17 +30,17 @@ def setup_redis():
     pools = {}
     for name, config in settings.STREAM_REDIS_CONFIG.items():
         options = {
-            host=config['host'],
-            port=config['port'],
-            password=config.get('password'),
-            db=config['db'],
-            decode_responses=config.get('decode_responses', True),
+            "host": config['host'],
+            "port": config['port'],
+            "password": config.get('password'),
+            "db": config['db'],
+            "decode_responses": config.get('decode_responses', True),
             # connection options
-            socket_timeout=config.get('socket_timeout', None),
-            socket_connect_timeout=config.get('socket_connect_timeout', None),
-            socket_keepalive=config.get('socket_keepalive', False),
-            socket_keepalive_options=config.get('socket_keepalive_options', None),
-            retry_on_timeout=config.get('retry_on_timeout', False),
+            "socket_timeout": config.get('socket_timeout', None),
+            "socket_connect_timeout": config.get('socket_connect_timeout', None),
+            "socket_keepalive": config.get('socket_keepalive', False),
+            "socket_keepalive_options": config.get('socket_keepalive_options', None),
+            "retry_on_timeout": config.get('retry_on_timeout', False),
         }
 
         if config['port'] == 6380:
