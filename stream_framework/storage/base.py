@@ -127,7 +127,7 @@ class BaseStorage(object):
                     activity = self.serializer.loads(serialized_activity)
                     activities.append(activity)
                 except SerializationException:
-                    # Skip if verb_id stored in redis no longer exists in the codebase.
+                    # Skip activity if verb_id stored in redis no longer exists in the codebase.
                     pass
         return activities
 
