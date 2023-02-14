@@ -3,6 +3,7 @@ from stream_framework.serializers.simple_timeline_serializer import \
     SimpleTimelineSerializer
 from stream_framework.utils import get_metrics_instance
 from stream_framework.activity import AggregatedActivity, Activity
+from stream_framework.exceptions import SerializationException
 import uuid
 import six
 
@@ -122,8 +123,12 @@ class BaseStorage(object):
 
         if serialized_activities is not None:
             for serialized_activity in serialized_activities:
-                activity = self.serializer.loads(serialized_activity)
-                activities.append(activity)
+                try:
+                    activity = self.serializer.loads(serialized_activity)
+                    activities.append(activity)
+                except SerializationException:
+                    # Skip if verb_id stored in redis no longer exists in the codebase.
+                    pass
         return activities
 
 
